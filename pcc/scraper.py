@@ -33,7 +33,7 @@ def _get_showings_for_film(film: BeautifulSoup) -> Iterable[Showing]:
     title_elem = film.find_next(class_='seasonEventTitle')
     name = title_elem.text.strip()
     description_elem = title_elem.parent
-    description = ' '.join(description_elem.text.replace('\n', ' ').split()).strip()
+    description = '\n'.join(p.text.strip() for p in description_elem.find_all('p')).strip()
     times = film.find_all(class_='eventPerformance')
     return (_get_showing_for_time(name, description, time_elem) for time_elem in times)
 

@@ -22,7 +22,7 @@ mock_times = {
     (datetime(2017, 9, 8, 21, 15), None)
 }
 
-mock_description = ' '.join("""MOCK MOVIE Starting from Monday 4th September, we'll be welcoming both Tommy Wiseau &
+mock_description = ' '.join("""Starting from Monday 4th September, we'll be welcoming both Tommy Wiseau &
 Greg Sestero back to The Prince Charles Cinema for exclusive preview screenings of Best Friends Movie!
 
 Cinema's most "unique" duo will be live on the PCC stage for each and every performance to answer your questions
@@ -37,7 +37,7 @@ and their efforts unravel, causing the drifter to run off with the spoils and le
 expedition across the South West introduces wild and crazy characters through a series of twisted and dark foibles as
 both men learn a valuable lesson about friendship and loyalty
 
-https://www.bf-movie.com/ """.replace('\n', ' ').split()).strip()
+https://www.bf-movie.com/ """.replace('\n\n', '\\n\\n').replace('\n', ' ').split()).strip()
 
 
 # noinspection PyUnusedLocal
@@ -80,7 +80,7 @@ def test_scraping_showings_from_calendar_finds_description_of_the_mock_movie():
         all_showings = scraper.scrape_showings()
         showings = mock_movie_showings(all_showings)
         for showing in showings:
-            eq_(showing.description, mock_description)
+            eq_(showing.description.replace('\n', '\\n'), mock_description)
 
 
 def mock_movie_showings(showings: Iterable[scraper.Showing]) -> Iterable[scraper.Showing]:
