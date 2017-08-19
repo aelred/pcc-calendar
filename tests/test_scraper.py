@@ -7,7 +7,7 @@ from nose.tools import eq_, ok_
 
 import pcc.scraper as scraper
 
-with open('test_page.html') as f:
+with open('tests/test_page.html') as f:
     mock_html = f.read()
 
 
@@ -22,20 +22,20 @@ mock_times = {
     (datetime(2017, 9, 8, 21, 15), None)
 }
 
-mock_description = ' '.join("""MOCK MOVIE Starting from Monday 4th September, we'll be welcoming both Tommy Wiseau & 
-Greg Sestero back to The Prince Charles Cinema for exclusive preview screenings of Best Friends Movie! 
+mock_description = ' '.join("""MOCK MOVIE Starting from Monday 4th September, we'll be welcoming both Tommy Wiseau &
+Greg Sestero back to The Prince Charles Cinema for exclusive preview screenings of Best Friends Movie!
 
-Cinema's most "unique" duo will be live on the PCC stage for each and every performance to answer your questions 
-about the film and, as always, they'll be in our bar to sign autographs & take photos [as long as you pick up a bit of 
-merch]. 
+Cinema's most "unique" duo will be live on the PCC stage for each and every performance to answer your questions
+about the film and, as always, they'll be in our bar to sign autographs & take photos [as long as you pick up a bit of
+merch].
 
 ** About BEST F[R]IENDS**
 
-When a drifter (Greg Sestero) is taken in by a peculiar mortician (Tommy Wiseau), the two hatch an underground 
-enterprise off the back of the mortician's old habits. But greed, hatred, and jealousy soon come in turn, 
-and their efforts unravel, causing the drifter to run off with the spoils and leaving the mortician adrift. An 
-expedition across the South West introduces wild and crazy characters through a series of twisted and dark foibles as 
-both men learn a valuable lesson about friendship and loyalty 
+When a drifter (Greg Sestero) is taken in by a peculiar mortician (Tommy Wiseau), the two hatch an underground
+enterprise off the back of the mortician's old habits. But greed, hatred, and jealousy soon come in turn,
+and their efforts unravel, causing the drifter to run off with the spoils and leaving the mortician adrift. An
+expedition across the South West introduces wild and crazy characters through a series of twisted and dark foibles as
+both men learn a valuable lesson about friendship and loyalty
 
 https://www.bf-movie.com/ """.replace('\n', ' ').split()).strip()
 

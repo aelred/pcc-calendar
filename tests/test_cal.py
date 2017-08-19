@@ -4,7 +4,7 @@ from icalendar import vDatetime
 from nose.tools import eq_, ok_
 
 import pcc.cal
-from scraper import Showing
+from pcc.scraper import Showing
 
 MOCK_SHOWING_WITH_END_TIME = \
     Showing("Up", datetime(2016, 9, 4, 20, 30), datetime(2016, 9, 4, 21, 45), "description of up")
