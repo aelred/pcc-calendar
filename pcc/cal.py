@@ -10,7 +10,7 @@ def make_calendar(showings) -> Calendar:
         event.add('summary', showing.name)
         event.add('description', showing.description)
         event.add('dtstart', showing.start_time)
-        event.add('location', 'Prince Charles Cinema, 7 Leicester Pl, London WC2H 7BY, United Kingdom')
+        event.add('location', 'Prince Charles Cinema')
         if showing.end_time:
             event.add('dtend', showing.end_time)
         else:

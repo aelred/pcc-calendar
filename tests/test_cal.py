@@ -71,5 +71,5 @@ def test_calendar_built_from_one_showing_has_one_event_with_end_time_of_the_show
 def test_every_event_in_calendar_has_location_prince_charles_cinema():
     calendar = pcc.cal.make_calendar(MOCK_SHOWINGS)
     for event in calendar.subcomponents:
-        eq_(event['location'], 'Prince Charles Cinema, 7 Leicester Pl, London WC2H 7BY, United Kingdom')
+        eq_(event['location'], 'Prince Charles Cinema')
 
