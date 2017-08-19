@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import Iterable, Optional
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 from dateutil.parser import parse
 
 
@@ -24,7 +24,7 @@ def scrape_showings() -> Iterable[Showing]:
 
 
 def parse_showings(html: str) -> Iterable[Showing]:
-    tree = BeautifulSoup(html, 'html.parser')
+    tree = BeautifulSoup(html, 'html.parser', parse_only=SoupStrainer(id='whats-on'))
     films = tree.find_all(class_='film')
     return itertools.chain.from_iterable(_get_showings_for_film(film) for film in films)
 
