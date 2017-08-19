@@ -54,6 +54,12 @@ def test_parsing_showing_page_finds_showings_for_the_mock_movie():
     ok_(len(showings) != 0, all_showings)
 
 
+def test_parsing_description_without_paragraph_tag_still_works():
+    all_showings = scraper.parse_showings(mock_html)
+    showing = [showing for showing in all_showings if showing.name == 'ANOTHER MOCK'][0]
+    eq_(showing.description, 'Mock description of another mock without a paragraph tag')
+
+
 def test_scraping_showings_from_calendar_finds_some_showings():
     with mock_page:
         all_showings = scraper.scrape_showings()
