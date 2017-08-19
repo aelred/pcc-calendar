@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e1559806ab56d2d73ceb022aaf150d5bc8ba125318e2f4750589370fac6c6842"
+            "sha256": "61585f2c2dd7864dc776de9354300b0c3af284df52e8e11ca59411a24921386c"
         },
         "requires": {},
         "sources": [
@@ -21,7 +21,6 @@
         "chardet": {
             "version": "==3.0.4"
         },
-        "dateutil": "*",
         "icalendar": {
             "version": "==3.11.6"
         },
