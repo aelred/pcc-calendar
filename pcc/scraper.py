@@ -2,6 +2,8 @@ import itertools
 from datetime import datetime
 from typing import Iterable, Optional
 
+import traceback
+import sys
 import requests
 from bs4 import BeautifulSoup, SoupStrainer
 from dateutil.parser import parse
@@ -40,27 +42,34 @@ def _get_showings_for_film(film: BeautifulSoup) -> Iterable[Showing]:
         description = description_elem.text.strip()[len(name):].strip()
 
     times = film.find_all(class_='eventPerformance')
-    return (_get_showing_for_time(name, description, time_elem) for time_elem in times)
+    showings = (_get_showing_for_time(name, description, time_elem) for time_elem in times)
+    return (showing for showing in showings if showing is not None)
 
 
 _DATE_FORMAT: str = '%a %d %b %Y'
 
 
-def _get_showing_for_time(name: str, description: str, time_elem: BeautifulSoup) -> Showing:
-    date_elem = time_elem.find_previous_sibling(class_='eventPerformanceDate')
-    date_str = date_elem.text.strip()
+def _get_showing_for_time(name: str, description: str, time_elem: BeautifulSoup) -> Optional[Showing]:
+    try:
+        date_elem = time_elem.find_previous_sibling(class_='eventPerformanceDate')
+        date_str = date_elem.text.strip()
 
-    date = parse(date_str)
+        date = parse(date_str)
 
-    time_str = time_elem.find_all('a')[1].text.strip()
+        time_str = time_elem.find_all('a')[1].text.strip()
 
-    if '-' in time_str:
-        # assume this includes an end time
-        (start_time_str, end_time_str) = time_str.split('-')
-        start_time = parse(start_time_str, default=date)
-        end_time = parse(end_time_str, default=date)
-    else:
-        start_time = parse(time_str, default=date)
-        end_time = None
+        if '-' in time_str:
+            # assume this includes an end time
+            (start_time_str, end_time_str) = time_str.split('-')
+            start_time = parse(start_time_str, default=date)
+            end_time = parse(end_time_str, default=date)
+        else:
+            start_time = parse(time_str, default=date)
+            end_time = None
 
-    return Showing(name, start_time, end_time, description)
+        return Showing(name, start_time, end_time, description)
+    except Exception:
+        msg = f'error getting showings for {name} with time\n{time_elem}'
+        print(msg, file=sys.stderr)
+        traceback.print_exc()
+        return None
