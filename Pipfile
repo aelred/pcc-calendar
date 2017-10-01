@@ -3,6 +3,7 @@ requests = "*"
 icalendar = "*"
 python-dateutil = "*"
 beautifulsoup4 = "*"
+result = "*"
 
 [dev-packages]
 nose = "*"

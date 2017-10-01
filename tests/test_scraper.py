@@ -4,12 +4,12 @@ from typing import Iterable
 import httmock
 from httmock import urlmatch, HTTMock
 from nose.tools import eq_, ok_
+from result import Result
 
 import pcc.scraper as scraper
 
 with open('tests/test_page.html') as f:
     mock_html = f.read()
-
 
 mock_movie: str = 'MOCK MOVIE'
 
@@ -45,19 +45,20 @@ https://www.bf-movie.com/ """.replace('\n\n', '\\n\\n').replace('\n', ' ').split
 def pcc_mock(url, request):
     return httmock.response(200, mock_html)
 
+
 mock_page: HTTMock = HTTMock(pcc_mock)
 
 
 def test_parsing_showing_page_finds_showings_for_the_mock_movie():
     all_showings = scraper.parse_showings(mock_html)
-    showings = [showing for showing in all_showings if showing.name == mock_movie]
+    showings = [showing for showing in all_showings if showing.value.name == mock_movie]
     ok_(len(showings) != 0, all_showings)
 
 
 def test_parsing_description_without_paragraph_tag_still_works():
     all_showings = scraper.parse_showings(mock_html)
-    showing = [showing for showing in all_showings if showing.name == 'ANOTHER MOCK'][0]
-    eq_(showing.description, 'Mock description of another mock without a paragraph tag')
+    showing = [showing for showing in all_showings if showing.value.name == 'ANOTHER MOCK'][0]
+    eq_(showing.value.description, 'Mock description of another mock without a paragraph tag')
 
 
 def test_scraping_showings_from_calendar_finds_some_showings():
@@ -89,5 +90,5 @@ def test_scraping_showings_from_calendar_finds_description_of_the_mock_movie():
             eq_(showing.description.replace('\n', '\\n'), mock_description)
 
 
-def mock_movie_showings(showings: Iterable[scraper.Showing]) -> Iterable[scraper.Showing]:
-    return [showing for showing in showings if showing.name == mock_movie]
+def mock_movie_showings(showings: Iterable[Result[str, scraper.Showing]]) -> Iterable[scraper.Showing]:
+    return [showing.value for showing in showings if showing.is_ok() and showing.value.name == mock_movie]

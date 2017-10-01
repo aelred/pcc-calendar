@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "61585f2c2dd7864dc776de9354300b0c3af284df52e8e11ca59411a24921386c"
+            "sha256": "8d5259a1bbf46c767c3f22c74fe6c99ffb8d674ebf895b5f33444cd148b65f50"
         },
         "requires": {},
         "sources": [
@@ -22,7 +22,7 @@
             "version": "==3.0.4"
         },
         "icalendar": {
-            "version": "==3.11.6"
+            "version": "==3.11.7"
         },
         "idna": {
             "version": "==2.6"
@@ -36,8 +36,14 @@
         "requests": {
             "version": "==2.18.4"
         },
+        "result": {
+            "version": "==0.3.0"
+        },
         "six": {
-            "version": "==1.10.0"
+            "version": "==1.11.0"
+        },
+        "typing": {
+            "version": "==3.6.2"
         },
         "urllib3": {
             "version": "==1.22"
